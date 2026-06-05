@@ -4,8 +4,14 @@ import LoginScreen from './components/LoginScreen';
 import AppShell from './components/AppShell';
 import DashboardScreen from './screens/DashboardScreen';
 import MenuScreen from './screens/MenuScreen';
+import POSScreen from './screens/POSScreen';
+import OrdersScreen from './screens/OrdersScreen';
+import KDSScreen from './screens/KDSScreen';
+import BillingScreen from './screens/BillingScreen';
 import { appRoutes, getDefaultRoute, RoleGuard } from './router/routes';
 import { useAuth } from './hooks/useAuth';
+import { MenuProvider } from './store/useMenuStore';
+import { OrderProvider } from './store/useOrderStore';
 
 const PagePlaceholder = ({ title }) => (
   <div className="page-placeholder">
@@ -37,7 +43,11 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <AppShell />
+              <OrderProvider>
+                <MenuProvider>
+                  <AppShell />
+                </MenuProvider>
+              </OrderProvider>
             </ProtectedRoute>
           }
         >
@@ -52,6 +62,14 @@ function App() {
                     <DashboardScreen />
                   ) : route.path === 'menu' ? (
                     <MenuScreen />
+                  ) : route.path === 'pos-order' ? (
+                    <POSScreen />
+                  ) : route.path === 'orders' ? (
+                    <OrdersScreen />
+                  ) : route.path === 'kitchen' ? (
+                    <KDSScreen />
+                  ) : route.path === 'billing' ? (
+                    <BillingScreen />
                   ) : (
                     <PagePlaceholder title={route.label} />
                   )}

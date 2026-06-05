@@ -8,8 +8,8 @@ const MenuItemCard = ({ item, onEdit, onToggle }) => {
       <div className="menu-item-details">
         <div className="menu-item-heading">
           <div className="menu-item-title">{item.name}</div>
-          <div className={`item-status ${item.available ? 'status-active' : 'status-86'}`}>
-            {item.available ? 'Active' : "86'd"}
+          <div className={`item-status ${item.available ? 'status-active' : 'status-n/a'}`}>
+            {item.available ? 'Active' : 'N/A'}
           </div>
         </div>
 
@@ -22,7 +22,7 @@ const MenuItemCard = ({ item, onEdit, onToggle }) => {
           Edit
         </button>
         <button type="button" className="button button-toggle" onClick={() => onToggle(item.id)}>
-          {item.available ? "86 item" : 'Activate'}
+          {item.available ? "N/A" : 'Activate'}
         </button>
       </div>
     </article>

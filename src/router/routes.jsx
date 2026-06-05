@@ -31,7 +31,7 @@ export const appRoutes = [
     path: 'kitchen',
     label: 'Kitchen',
     icon: 'flame',
-    allowed: ['admin', 'kitchen'],
+    allowed: ['kitchen'],
   },
   {
     path: 'billing',

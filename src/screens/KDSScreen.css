@@ -1,0 +1,238 @@
+.kds-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.kds-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kds-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kds-topbar h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.kds-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #166534;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.live-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #22c55e;
+  animation: live-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.45; }
+}
+
+.kds-time-display {
+  color: #475569;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.kds-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.kds-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.kds-column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.95rem 1rem;
+  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.kds-column-pending .kds-column-header {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.kds-column-preparing .kds-column-header {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.kds-column-ready .kds-column-header {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.kds-column-count {
+  min-width: 2.2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+}
+
+.kds-column-body {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.kds-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 14px;
+  border-radius: 1.35rem;
+  border: 1px solid transparent;
+  background: #f8fafc;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.kds-card:hover {
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.kds-card-flash {
+  animation: flash-border 1.2s ease;
+}
+
+@keyframes flash-border {
+  0% { border-color: #fde68a; }
+  50% { border-color: transparent; }
+  100% { border-color: #fde68a; }
+}
+
+.kds-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.kds-order-number {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.kds-table-number {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.kds-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.kds-item-row {
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.kds-notes {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #6b7280;
+  padding: 0.75rem 0.85rem;
+  border-left: 3px solid #c7d2fe;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 0.95rem;
+}
+
+.kds-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.elapsed-timer {
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.kds-action-button {
+  width: 100%;
+  min-height: 36px;
+  border: none;
+  border-radius: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+.kds-action-button:hover {
+  transform: translateY(-1px);
+}
+
+.kds-action-amber {
+  background: #f59e0b;
+}
+
+.kds-action-blue {
+  background: #2563eb;
+}
+
+.kds-action-green {
+  background: #16a34a;
+}
+
+.kds-empty-state {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .kds-board {
+    grid-template-columns: 1fr;
+  }
+}

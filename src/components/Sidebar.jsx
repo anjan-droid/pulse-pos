@@ -8,7 +8,7 @@ const renderIcon = (name) => {
   switch (name) {
     case 'grid':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="7" height="7" rx="1" />
           <rect x="14" y="3" width="7" height="7" rx="1" />
           <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -17,7 +17,7 @@ const renderIcon = (name) => {
       );
     case 'tools-kitchen':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8.5 7C7.12 7 6 8.12 6 9.5V14" />
           <path d="M15.5 7C14.12 7 13 8.12 13 9.5V14" />
           <path d="M8 15h8" />
@@ -27,7 +27,7 @@ const renderIcon = (name) => {
       );
     case 'shopping-cart':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 3h2l1.68 10.39a2 2 0 0 0 2 1.61h8.64a2 2 0 0 0 2-1.61L21 6H6" />
           <circle cx="9" cy="20" r="1" />
           <circle cx="18" cy="20" r="1" />
@@ -35,7 +35,7 @@ const renderIcon = (name) => {
       );
     case 'clipboard-list':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 3h6" />
           <path d="M9 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2" />
           <path d="M9 11h6" />
@@ -45,14 +45,14 @@ const renderIcon = (name) => {
       );
     case 'flame':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 22s5-4.75 5-10a5 5 0 0 0-10 0c0 5.25 5 10 5 10z" />
           <path d="M12 2C8 7 9 11 9 11a3 3 0 0 0 6 0s1-4-3-9z" />
         </svg>
       );
     case 'receipt':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 4h14v16l-3-2-3 2-3-2-3 2V4z" />
           <path d="M9 8h6" />
           <path d="M9 12h6" />
@@ -60,7 +60,7 @@ const renderIcon = (name) => {
       );
     case 'chart-bar':
       return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M6 19V9" />
           <path d="M10 19V5" />
           <path d="M14 19v-6" />
@@ -78,7 +78,8 @@ const Sidebar = () => {
   const { getUserRole, getUsername, logout } = useAuth();
   const role = getUserRole();
   const username = getUsername();
-  const visibleRoutes = appRoutes.filter((route) => route.allowed.includes(role));
+  const normalizedRole = role ? role.toLowerCase() : '';
+  const visibleRoutes = appRoutes.filter((route) => route.allowed.includes(normalizedRole));
 
   const handleLogout = () => {
     logout();
@@ -116,7 +117,14 @@ const Sidebar = () => {
           </div>
         </div>
         <button type="button" className="logout-button" onClick={handleLogout}>
-          Logout
+          <span className="logout-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </span>
+          <span className="logout-label">Logout</span>
         </button>
       </div>
     </aside>

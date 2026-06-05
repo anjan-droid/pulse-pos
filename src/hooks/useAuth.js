@@ -20,12 +20,14 @@ const useAuth = () => {
   }, []);
 
   const login = (userData) => {
+    const normalizedRole = String(userData.role).toLowerCase();
+
     // Store user data in localStorage
-    localStorage.setItem('pos_role', userData.role);
+    localStorage.setItem('pos_role', normalizedRole);
     localStorage.setItem('pos_username', userData.username);
-    setUser(userData);
+    setUser({ ...userData, role: normalizedRole });
     // Return role for caller to handle navigation
-    return userData.role;
+    return normalizedRole;
   };
 
   const logout = () => {
@@ -36,7 +38,8 @@ const useAuth = () => {
   };
 
   const getUserRole = () => {
-    return user?.role || localStorage.getItem('pos_role');
+    const storedRole = user?.role || localStorage.getItem('pos_role');
+    return storedRole ? String(storedRole).toLowerCase() : null;
   };
 
   const getUsername = () => {

@@ -1,5 +1,7 @@
 import React from 'react';
 
+const MenuContext = React.createContext(null);
+
 const initialState = {
   categories: ['Starters', 'Mains', 'Drinks', 'Desserts'],
   items: [
@@ -136,7 +138,7 @@ function menuReducer(state, action) {
   }
 }
 
-export const useMenuStore = () => {
+export const MenuProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(menuReducer, initialState);
 
   const addItem = (item) => {
@@ -154,11 +156,18 @@ export const useMenuStore = () => {
   const addCategory = (categoryName) =>
     dispatch({ type: 'ADD_CATEGORY', payload: categoryName });
 
-  return {
-    state,
-    addItem,
-    updateItem,
-    toggleItem,
-    addCategory,
-  };
+  return (
+    <MenuContext.Provider value={{ state, addItem, updateItem, toggleItem, addCategory }}>
+      {children}
+    </MenuContext.Provider>
+  );
+};
+
+export const useMenuStore = () => {
+  const context = React.useContext(MenuContext);
+  if (!context) {
+    throw new Error('useMenuStore must be used within a MenuProvider');
+  }
+
+  return context;
 };
