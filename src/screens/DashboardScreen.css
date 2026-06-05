@@ -1,0 +1,214 @@
+.dashboard-screen {
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.dashboard-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.header-date {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.new-order-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.5rem;
+  border: none;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #534ab7 0%, #6b5fd3 100%);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow 150ms ease;
+}
+
+.new-order-button:hover {
+  box-shadow: 0 20px 40px rgba(83, 74, 183, 0.2);
+}
+
+.new-order-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+.chart-section {
+  flex: 1;
+}
+
+.chart-card,
+.orders-card {
+  background: #ffffff;
+  border: 0.5px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+}
+
+.chart-card h3,
+.orders-card h3 {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Simple Bar Chart */
+.simple-chart {
+  width: 100%;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 0.5rem;
+  height: 240px;
+  padding: 1rem 0.5rem 0;
+}
+
+.chart-bar-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chart-bar-container {
+  width: 100%;
+  height: 200px;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.25rem;
+}
+
+.chart-bar {
+  width: 100%;
+  background: #534ab7;
+  border-radius: 0.35rem;
+  transition: background 150ms ease;
+  min-height: 4px;
+}
+
+.chart-bar:hover {
+  background: #6b5fd3;
+}
+
+.chart-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Orders Section */
+.orders-section {
+  flex: 1;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.order-row {
+  display: grid;
+  grid-template-columns: 80px 100px 80px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.95rem;
+  border-radius: 0.95rem;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: background 150ms ease;
+  border: 1px solid transparent;
+}
+
+.order-row:hover {
+  background: #eef2ff;
+  border-color: #e0e7ff;
+}
+
+.order-id {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.order-table {
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.order-items {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.order-status {
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-bars {
+    gap: 0.25rem;
+  }
+
+  .order-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .order-status {
+    text-align: left;
+  }
+}

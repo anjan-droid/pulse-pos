@@ -1,0 +1,44 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #eef2ff;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 100vh;
+  padding: 2rem;
+  transition: padding 150ms ease;
+  background: #eef2ff;
+}
+
+.page-placeholder {
+  max-width: 1120px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 1.75rem;
+  padding: 2.5rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.page-placeholder h1 {
+  margin: 0 0 1rem;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.page-placeholder p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.75;
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .app-main {
+    padding: 1.25rem;
+  }
+}
