@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import StatusBadge from './StatusBadge';
+import { getOrderTypeLabel } from '../utils/orderType';
 
 const nextStatus = {
   Pending: 'Preparing',
@@ -34,9 +35,32 @@ const OrderDetailPanel = ({ order, updateStatus }) => {
 
       <div className="order-detail-meta">
         <div>
-          <div className="meta-label">Table</div>
-          <div className="meta-value">{order.tableNumber}</div>
+          <div className="meta-label">Type</div>
+          <div className="meta-value">{getOrderTypeLabel(order.orderType)}</div>
         </div>
+        {order.orderType === 'dine-in' ? (
+          <div>
+            <div className="meta-label">Table</div>
+            <div className="meta-value">{order.tableNumber}</div>
+          </div>
+        ) : (
+          <>
+            <div>
+              <div className="meta-label">Customer</div>
+              <div className="meta-value">{order.customerDetails?.name}</div>
+            </div>
+            <div>
+              <div className="meta-label">Phone</div>
+              <div className="meta-value">{order.customerDetails?.phone}</div>
+            </div>
+            {order.orderType === 'delivery' ? (
+              <div className="meta-wide">
+                <div className="meta-label">Address</div>
+                <div className="meta-value">{order.customerDetails?.address}</div>
+              </div>
+            ) : null}
+          </>
+        )}
         <div>
           <div className="meta-label">Time</div>
           <div className="meta-value">{new Date(order.createdAt).toLocaleString()}</div>

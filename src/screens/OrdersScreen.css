@@ -83,7 +83,7 @@
 
 .orders-table-header {
   display: grid;
-  grid-template-columns: minmax(80px, 1.1fr) minmax(60px, 0.8fr) minmax(70px, 0.8fr) minmax(80px, 0.8fr) minmax(100px, 1fr);
+  grid-template-columns: minmax(80px, 0.9fr) minmax(90px, 0.8fr) minmax(110px, 1fr) minmax(60px, 0.6fr) minmax(70px, 0.7fr) minmax(80px, 0.7fr) minmax(100px, 0.9fr);
   gap: 1rem;
   padding: 1rem 1.25rem;
   background: #f8fafc;
@@ -104,7 +104,7 @@
 .orders-table-row {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(80px, 1.1fr) minmax(60px, 0.8fr) minmax(70px, 0.8fr) minmax(80px, 0.8fr) minmax(100px, 1fr);
+  grid-template-columns: minmax(80px, 0.9fr) minmax(90px, 0.8fr) minmax(110px, 1fr) minmax(60px, 0.6fr) minmax(70px, 0.7fr) minmax(80px, 0.7fr) minmax(100px, 0.9fr);
   gap: 1rem;
   align-items: center;
   padding: 1rem 1.25rem;
@@ -194,6 +194,10 @@
   margin-top: 0.35rem;
   font-weight: 700;
   color: #111827;
+}
+
+.meta-wide {
+  grid-column: 1 / -1;
 }
 
 .order-detail-section {

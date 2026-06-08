@@ -1,4 +1,5 @@
 import React from 'react';
+import { getOrderTypeLabel } from '../utils/orderType';
 
 const ReceiptModal = ({ order, totals, paymentMethod, onClose }) => {
   const methodLabel = {
@@ -19,9 +20,25 @@ const ReceiptModal = ({ order, totals, paymentMethod, onClose }) => {
 
         <div className="receipt-details">
           <div className="receipt-row">
-            <span>Table</span>
-            <span>{order.tableNumber}</span>
+            <span>{order.orderType === 'dine-in' ? 'Table' : 'Customer'}</span>
+            <span>{order.orderType === 'dine-in' ? order.tableNumber : order.customerDetails?.name}</span>
           </div>
+          <div className="receipt-row">
+            <span>Order Type</span>
+            <span>{getOrderTypeLabel(order.orderType)}</span>
+          </div>
+          {order.orderType !== 'dine-in' ? (
+            <div className="receipt-row">
+              <span>Phone</span>
+              <span>{order.customerDetails?.phone}</span>
+            </div>
+          ) : null}
+          {order.orderType === 'delivery' ? (
+            <div className="receipt-row">
+              <span>Address</span>
+              <span>{order.customerDetails?.address}</span>
+            </div>
+          ) : null}
           <div className="receipt-row">
             <span>Payment Method</span>
             <span>{methodLabel}</span>

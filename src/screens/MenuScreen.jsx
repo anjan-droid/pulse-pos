@@ -27,6 +27,8 @@ const MenuScreen = () => {
   }, [state.categories, state.items]);
 
   const categories = ['All items', ...state.categories];
+  const availableCount = state.items.filter((item) => item.available).length;
+  const unavailableCount = state.items.length - availableCount;
 
   const filteredItems = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
@@ -83,11 +85,16 @@ const MenuScreen = () => {
         <div>
           <h1>Menu Management</h1>
           <p>Organize your menu items, categories, and availability.</p>
+          <div className="menu-insights" aria-label="Menu availability summary">
+            <span>{state.items.length} items</span>
+            <span>{availableCount} available</span>
+            <span>{unavailableCount} unavailable</span>
+          </div>
         </div>
 
         <div className="menu-toolbar">
           <label className="search-field">
-            <span className="search-label">Search</span>
+            
             <input
               type="text"
               placeholder="Search name or description"

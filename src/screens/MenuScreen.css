@@ -24,6 +24,26 @@
   color: #6b7280;
 }
 
+.menu-insights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.menu-insights span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 0.65rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .menu-toolbar {
   display: flex;
   align-items: center;
@@ -37,11 +57,7 @@
   min-width: 220px;
 }
 
-.search-label {
-  font-size: 0.85rem;
-  color: #4b5563;
-  margin-bottom: 0.4rem;
-}
+
 
 .search-field input {
   width: 100%;
@@ -169,7 +185,7 @@
   gap: 1rem;
   padding: 1rem;
   border: 1px solid #e5e7eb;
-  border-radius: 1.35rem;
+  border-radius: 1rem;
   background: #ffffff;
   transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
 }
@@ -222,7 +238,7 @@
 
 .menu-item-title {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   color: #111827;
 }
 
@@ -239,21 +255,31 @@
 }
 
 .item-status {
-  padding: 0.35rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.status-active {
+.status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.status-available {
   color: #166534;
   background: #dcfce7;
 }
 
-.status-86 {
-  color: #b91c1c;
-  background: #fee2e2;
+.status-unavailable {
+  color: #92400e;
+  background: #fef3c7;
 }
 
 .menu-item-actions {
@@ -263,7 +289,7 @@
 }
 
 .menu-item-actions .button {
-  flex: 1;
+  flex: 0 0 auto;
   min-width: 70px;
   font-size: 0.8rem;
   padding: 0.6rem 0.8rem;
@@ -274,23 +300,73 @@
   gap: 0.3rem;
 }
 
-.button-toggle {
-  background: #f8f7ff;
-  color: #3f3cbb;
+.availability-switch {
+  flex: 1 1 100%;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.85rem;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
 }
 
-.button-toggle:hover {
-  background: #ede9fe;
+.availability-switch:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
 }
 
-.button-toggle.button-86 {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.button-toggle.button-activate {
-  background: #dcfce7;
+.availability-switch.is-on {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
   color: #166534;
+}
+
+.availability-switch.is-off {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.switch-track {
+  width: 38px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: background 150ms ease;
+  flex: 0 0 auto;
+}
+
+.switch-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.18);
+  transform: translateX(0);
+  transition: transform 150ms ease;
+}
+
+.availability-switch.is-on .switch-track {
+  background: #16a34a;
+}
+
+.availability-switch.is-off .switch-track {
+  background: #f59e0b;
+}
+
+.availability-switch.is-on .switch-thumb {
+  transform: translateX(16px);
 }
 
 .button-danger {
@@ -432,6 +508,36 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.availability-field {
+  padding: 0.9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.95rem;
+  background: #f8fafc;
+}
+
+.availability-field span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.availability-field strong {
+  color: #111827;
+  font-size: 0.92rem;
+}
+
+.availability-field small {
+  color: #6b7280;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.availability-field input {
+  width: 20px;
+  height: 20px;
+  accent-color: #16a34a;
 }
 
 .modal-actions {

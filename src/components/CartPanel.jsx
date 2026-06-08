@@ -5,6 +5,11 @@ const CartPanel = ({
   orderNumber,
   tableNumber,
   onTableChange,
+  orderTypes,
+  orderType,
+  onOrderTypeChange,
+  customerDetails,
+  onCustomerDetailsChange,
   cartItems,
   subtotal,
   tax,
@@ -15,6 +20,13 @@ const CartPanel = ({
   onSend,
   disabled,
 }) => {
+  const handleCustomerDetailChange = (field, value) => {
+    onCustomerDetailsChange({
+      ...customerDetails,
+      [field]: value,
+    });
+  };
+
   return (
     <div className="cart-panel">
       <div className="cart-header">
@@ -22,16 +34,65 @@ const CartPanel = ({
           <div className="cart-label">Order</div>
           <h2>{orderNumber}</h2>
         </div>
-        <label className="table-select-label">
-          Table
-          <select value={tableNumber} onChange={(event) => onTableChange(event.target.value)}>
-            {Array.from({ length: 12 }, (_, index) => index + 1).map((number) => (
-              <option key={number} value={String(number)}>
-                {number}
-              </option>
+        <div className="order-type-field">
+          <div className="cart-label">Order type</div>
+          <div className="order-type-options" role="group" aria-label="Order type">
+            {orderTypes.map((type) => (
+              <button
+                key={type.value}
+                type="button"
+                className={`order-type-option ${orderType === type.value ? 'active' : ''}`}
+                onClick={() => onOrderTypeChange(type.value)}
+              >
+                {type.label}
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
+        {orderType === 'dine-in' ? (
+          <label className="order-detail-field">
+            Table
+            <select value={tableNumber} onChange={(event) => onTableChange(event.target.value)}>
+              {Array.from({ length: 12 }, (_, index) => index + 1).map((number) => (
+                <option key={number} value={String(number)}>
+                  {number}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          <div className="customer-detail-fields">
+            <label className="order-detail-field">
+              Name
+              <input
+                type="text"
+                value={customerDetails.name}
+                onChange={(event) => handleCustomerDetailChange('name', event.target.value)}
+                placeholder="Customer name"
+              />
+            </label>
+            <label className="order-detail-field">
+              Phone
+              <input
+                type="tel"
+                value={customerDetails.phone}
+                onChange={(event) => handleCustomerDetailChange('phone', event.target.value)}
+                placeholder="Phone number"
+              />
+            </label>
+            {orderType === 'delivery' ? (
+              <label className="order-detail-field">
+                Address
+                <textarea
+                  value={customerDetails.address}
+                  onChange={(event) => handleCustomerDetailChange('address', event.target.value)}
+                  placeholder="Delivery address"
+                  rows="3"
+                />
+              </label>
+            ) : null}
+          </div>
+        )}
       </div>
 
       <div className="cart-items">

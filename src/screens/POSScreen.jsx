@@ -7,6 +7,12 @@ import MenuGrid from '../components/MenuGrid';
 import CartPanel from '../components/CartPanel';
 import './POSScreen.css';
 
+const ORDER_TYPES = [
+  { value: 'dine-in', label: 'Dine-in' },
+  { value: 'takeaway', label: 'Takeaway' },
+  { value: 'delivery', label: 'Delivery' },
+];
+
 const POSScreen = () => {
   const { state: menuState } = useMenuStore();
   const { createOrder } = useOrderStore();
@@ -14,6 +20,12 @@ const POSScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All items');
   const [tableNumber, setTableNumber] = useState('1');
+  const [orderType, setOrderType] = useState('dine-in');
+  const [customerDetails, setCustomerDetails] = useState({
+    name: '',
+    phone: '',
+    address: '',
+  });
   const [toast, setToast] = useState('');
   const [orderNumber] = useState(() => `#${Math.floor(1000 + Math.random() * 9000)}`);
   const navigate = useNavigate();
@@ -37,6 +49,11 @@ const POSScreen = () => {
   const subtotal = Number(cartTotal.toFixed(2));
   const tax = Number((subtotal * 0.08).toFixed(2));
   const total = Number((subtotal + tax).toFixed(2));
+  const hasRequiredOrderDetails =
+    orderType === 'dine-in' ||
+    (customerDetails.name.trim() !== '' &&
+      customerDetails.phone.trim() !== '' &&
+      (orderType === 'takeaway' || customerDetails.address.trim() !== ''));
 
   const handleAddToCart = (item) => {
     if (!item.available) {
@@ -53,7 +70,13 @@ const POSScreen = () => {
     const newOrder = {
       id: `order-${Date.now()}`,
       number: orderNumber,
-      tableNumber,
+      tableNumber: orderType === 'dine-in' ? tableNumber : '',
+      orderType,
+      customerDetails: {
+        name: customerDetails.name.trim(),
+        phone: customerDetails.phone.trim(),
+        address: customerDetails.address.trim(),
+      },
       items: cartItems,
       status: 'Pending',
       createdAt: new Date().toISOString(),
@@ -99,6 +122,11 @@ const POSScreen = () => {
             orderNumber={orderNumber}
             tableNumber={tableNumber}
             onTableChange={setTableNumber}
+            orderTypes={ORDER_TYPES}
+            orderType={orderType}
+            onOrderTypeChange={setOrderType}
+            customerDetails={customerDetails}
+            onCustomerDetailsChange={setCustomerDetails}
             cartItems={cartItems}
             subtotal={subtotal}
             tax={tax}
@@ -107,7 +135,7 @@ const POSScreen = () => {
             onIncrease={(itemId, qty) => updateQty(itemId, qty + 1)}
             onRemove={removeItem}
             onSend={handleSendToKitchen}
-            disabled={cartItems.length === 0}
+            disabled={cartItems.length === 0 || !hasRequiredOrderDetails}
           />
         </aside>
       </div>

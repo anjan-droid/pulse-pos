@@ -2,7 +2,7 @@ import React from 'react';
 
 const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
   const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to delete "${item.name}"? This action cannot be undone.`)) {
+    if (onDelete && window.confirm(`Are you sure you want to delete "${item.name}"? This action cannot be undone.`)) {
       onDelete(item.id);
     }
   };
@@ -28,8 +28,9 @@ const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
       <div className="menu-item-details">
         <div className="menu-item-heading">
           <div className="menu-item-title">{item.name}</div>
-          <div className={`item-status ${item.available ? 'status-active' : 'status-deactivated'}`}>
-            {item.available ? 'Active' : "Deactivated"}
+          <div className={`item-status ${item.available ? 'status-available' : 'status-unavailable'}`}>
+            <span className="status-dot" aria-hidden="true" />
+            {item.available ? 'Available' : 'Unavailable'}
           </div>
         </div>
 
@@ -38,6 +39,17 @@ const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
       </div>
 
       <div className="menu-item-actions">
+        <button
+          type="button"
+          className={`availability-switch ${item.available ? 'is-on' : 'is-off'}`}
+          onClick={() => onToggle(item.id)}
+          aria-pressed={item.available}
+        >
+          <span className="switch-track" aria-hidden="true">
+            <span className="switch-thumb" />
+          </span>
+          <span>{item.available ? 'Available for orders' : 'Hidden from orders'}</span>
+        </button>
         <button 
           type="button" 
           className="button button-secondary" 
@@ -45,20 +57,15 @@ const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
         >
           Edit
         </button>
-        <button 
-          type="button" 
-          className={`button button-toggle ${item.available ? 'button-deactivate' : 'button-activate'}`} 
-          onClick={() => onToggle(item.id)}
-        >
-          {item.available ? "Deactivate" : 'Activate'}
-        </button>
-        <button 
-          type="button" 
-          className="button button-danger" 
-          onClick={handleDelete}
-        >
-          🗑️ Delete
-        </button>
+        {onDelete ? (
+          <button 
+            type="button" 
+            className="button button-danger" 
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        ) : null}
       </div>
     </article>
   );

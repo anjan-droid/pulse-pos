@@ -239,8 +239,11 @@ const MenuItemModal = ({ open, item, categories, onClose, onSave }) => {
             />
           </label>
 
-          <label className="form-group toggle-group">
-            <span>Available</span>
+          <label className="form-group toggle-group availability-field">
+            <span>
+              <strong>Available for orders</strong>
+              <small>Unavailable items stay on the menu but cannot be ordered.</small>
+            </span>
             <input
               type="checkbox"
               checked={form.available}

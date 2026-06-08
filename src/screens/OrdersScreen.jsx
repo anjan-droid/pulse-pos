@@ -3,6 +3,7 @@ import { useOrderStore } from '../store/useOrderStore';
 import FilterChips from '../components/FilterChips';
 import OrdersTable from '../components/OrdersTable';
 import OrderDetailPanel from '../components/OrderDetailPanel';
+import { getOrderSearchText } from '../utils/orderType';
 import './OrdersScreen.css';
 
 const statusOptions = ['All', 'Pending', 'Preparing', 'Ready', 'Served', 'Paid'];
@@ -25,8 +26,7 @@ const OrdersScreen = () => {
       const matchesStatus = activeStatus === 'All' || order.status === activeStatus;
       const matchesSearch =
         query === '' ||
-        order.number.toLowerCase().includes(query) ||
-        order.tableNumber.toString().includes(query);
+        getOrderSearchText(order).includes(query);
 
       return matchesStatus && matchesSearch;
     });
@@ -50,7 +50,7 @@ const OrdersScreen = () => {
             <input
               type="text"
               className="orders-search"
-              placeholder="Search order # or table"
+              placeholder="Search order, table, customer, or type"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
             />

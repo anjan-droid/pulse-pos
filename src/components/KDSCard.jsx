@@ -1,6 +1,7 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
 import ElapsedTimer from './ElapsedTimer';
+import { getOrderPrimaryDetail, getOrderTypeLabel } from '../utils/orderType';
 
 const actionLabelMap = {
   Pending: 'Start preparing',
@@ -20,7 +21,12 @@ const KDSCard = ({ order, onAction, flash }) => {
       <div className="kds-card-header">
         <div>
           <div className="kds-order-number">{order.number}</div>
-          <div className="kds-table-number">Table {order.tableNumber}</div>
+          <div className="kds-table-number">
+            {getOrderPrimaryDetail(order)} - {getOrderTypeLabel(order.orderType)}
+          </div>
+          {order.orderType === 'delivery' ? (
+            <div className="kds-table-number">{order.customerDetails?.address}</div>
+          ) : null}
         </div>
         <StatusBadge status={order.status} />
       </div>

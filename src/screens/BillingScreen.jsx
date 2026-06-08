@@ -4,6 +4,7 @@ import { useOrderStore } from '../store/useOrderStore';
 import BillTable from '../components/BillTable';
 import PaymentPanel from '../components/PaymentPanel';
 import ReceiptModal from '../components/ReceiptModal';
+import { getOrderPrimaryDetail, getOrderSearchText, getOrderTypeLabel } from '../utils/orderType';
 import './BillingScreen.css';
 
 const BillingScreen = () => {
@@ -38,10 +39,7 @@ const BillingScreen = () => {
     return [...orders]
       .filter((order) => {
         if (!query) return true;
-        return (
-          order.number.toLowerCase().includes(query) ||
-          order.tableNumber.toString().includes(query)
-        );
+        return getOrderSearchText(order).includes(query);
       })
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }, [orders, searchTerm]);
@@ -121,7 +119,7 @@ const BillingScreen = () => {
         <input
           type="text"
           className="billing-sidebar-search"
-          placeholder="Search order or table"
+          placeholder="Search order, table, customer, or type"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -143,7 +141,8 @@ const BillingScreen = () => {
                   </span>
                 </div>
                 <div className="order-item-meta">
-                  <span>Table {order.tableNumber}</span>
+                  <span>{getOrderPrimaryDetail(order)}</span>
+                  <span>{getOrderTypeLabel(order.orderType)}</span>
                   <span>${order.total.toFixed(2)}</span>
                 </div>
               </button>
@@ -162,9 +161,27 @@ const BillingScreen = () => {
                 <span className="header-value">{selectedOrder.number}</span>
               </div>
               <div>
-                <span className="header-label">Table</span>
-                <span className="header-value">{selectedOrder.tableNumber}</span>
+                <span className="header-label">Type</span>
+                <span className="header-value">{getOrderTypeLabel(selectedOrder.orderType)}</span>
               </div>
+              <div>
+                <span className="header-label">
+                  {selectedOrder.orderType === 'dine-in' ? 'Table' : 'Customer'}
+                </span>
+                <span className="header-value">{getOrderPrimaryDetail(selectedOrder)}</span>
+              </div>
+              {selectedOrder.orderType !== 'dine-in' ? (
+                <div>
+                  <span className="header-label">Phone</span>
+                  <span className="header-value">{selectedOrder.customerDetails?.phone}</span>
+                </div>
+              ) : null}
+              {selectedOrder.orderType === 'delivery' ? (
+                <div>
+                  <span className="header-label">Address</span>
+                  <span className="header-value">{selectedOrder.customerDetails?.address}</span>
+                </div>
+              ) : null}
               <div>
                 <span className="header-label">Status</span>
                 <span className={`status-badge status-${selectedOrder.status.toLowerCase()}`}>

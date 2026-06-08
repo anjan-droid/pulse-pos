@@ -1,11 +1,14 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
+import { getOrderPrimaryDetail, getOrderTypeLabel } from '../utils/orderType';
 
 const OrdersTable = ({ orders, selectedOrderId, onSelectOrder }) => {
   return (
     <div className="orders-table-wrapper">
       <div className="orders-table-header">
         <span>Order #</span>
+        <span>Type</span>
+        <span>Details</span>
         <span>Items</span>
         <span>Time</span>
         <span>Amount</span>
@@ -20,6 +23,8 @@ const OrdersTable = ({ orders, selectedOrderId, onSelectOrder }) => {
             onClick={() => onSelectOrder(order.id)}
           >
             <span>{order.number}</span>
+            <span>{getOrderTypeLabel(order.orderType)}</span>
+            <span>{getOrderPrimaryDetail(order)}</span>
             <span>{order.items.reduce((total, item) => total + item.quantity, 0)}</span>
             <span>{new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
             <span>${order.total.toFixed(2)}</span>

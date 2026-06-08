@@ -8,6 +8,8 @@ const initialState = {
       id: 'order-1001',
       number: '#1001',
       tableNumber: '4',
+      orderType: 'dine-in',
+      customerDetails: { name: '', phone: '', address: '' },
       items: [
         { id: 'item-1', name: 'Truffle Fries', quantity: 1, price: 8.5 },
         { id: 'item-3', name: 'Steak Frites', quantity: 1, price: 24.0 },
@@ -22,7 +24,9 @@ const initialState = {
     {
       id: 'order-1002',
       number: '#1002',
-      tableNumber: '7',
+      tableNumber: '',
+      orderType: 'takeaway',
+      customerDetails: { name: 'Alex Carter', phone: '555-0148', address: '' },
       items: [
         { id: 'item-7', name: 'Matcha Latte', quantity: 2, price: 6.5 },
         { id: 'item-11', name: 'Cheesecake', quantity: 1, price: 8.5 },
@@ -37,7 +41,9 @@ const initialState = {
     {
       id: 'order-1003',
       number: '#1003',
-      tableNumber: '2',
+      tableNumber: '',
+      orderType: 'delivery',
+      customerDetails: { name: 'Jamie Lee', phone: '555-0192', address: '42 Maple Street' },
       items: [
         { id: 'item-5', name: 'Spicy Ramen', quantity: 1, price: 16.0 },
       ],
