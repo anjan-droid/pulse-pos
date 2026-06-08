@@ -28,8 +28,8 @@ const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
       <div className="menu-item-details">
         <div className="menu-item-heading">
           <div className="menu-item-title">{item.name}</div>
-          <div className={`item-status ${item.available ? 'status-active' : 'status-86'}`}>
-            {item.available ? 'Active' : "86'd"}
+          <div className={`item-status ${item.available ? 'status-active' : 'status-deactivated'}`}>
+            {item.available ? 'Active' : "Deactivated"}
           </div>
         </div>
 
@@ -47,10 +47,10 @@ const MenuItemCard = ({ item, onEdit, onToggle, onDelete }) => {
         </button>
         <button 
           type="button" 
-          className={`button button-toggle ${item.available ? 'button-86' : 'button-activate'}`} 
+          className={`button button-toggle ${item.available ? 'button-deactivate' : 'button-activate'}`} 
           onClick={() => onToggle(item.id)}
         >
-          {item.available ? "86 Item" : 'Activate'}
+          {item.available ? "Deactivate" : 'Activate'}
         </button>
         <button 
           type="button" 
